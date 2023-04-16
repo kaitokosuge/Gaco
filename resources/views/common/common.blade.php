@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>Gaco🐸|gathering code</h1>
+        <h1><a href="/">Gaco🐸|gathering code</a></h1>
         <nav>
             <ul>
                 <li><a href="#">ログイン</a></li>
