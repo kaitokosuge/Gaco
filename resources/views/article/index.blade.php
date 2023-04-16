@@ -8,7 +8,7 @@
         <section>
             <article>
                 <a href="#">
-                    コンテンツエリア
+                    
                 </a>
             </article>
         </section>
