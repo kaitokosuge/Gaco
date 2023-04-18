@@ -15,7 +15,7 @@
                 <li><a href="#">ログイン</a></li>
                 <li><a href="#">このサイトについて</a></li>
                 <li><a href="#">プロフィール</a></li>
-                <li><a href="#">ギャラリー</a></li>
+                <li><a href="/">ギャラリー</a></li>
             </ul>    
         </nav>
     </header> 

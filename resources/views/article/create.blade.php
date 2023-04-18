@@ -1,7 +1,7 @@
 @extends('common/common')
 @section('content')
 <main>
-    <form>
+    <form action="{{ route('store.article') }}"method="POST">
         @csrf
         <div>
             <div>
@@ -31,6 +31,9 @@
             <div>
                 <p>説明</p>
                 <input type="text" name="article[explanation]">
+            </div>
+            <div>
+                <button type="submit">投稿</button>
             </div>
         </div>
     </form>

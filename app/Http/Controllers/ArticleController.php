@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -11,9 +12,9 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Article $article)
     {
-        return view('article/index');
+        return view('article/index')->with(['articles'=>$article->get()]);
     }
 
     /**
@@ -32,9 +33,13 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Article $article)
     {
-        //
+        $article->user_id = \Auth::user()->id;
+        $input = $request['article'];
+        $article->fill($input)->save();
+
+        return redirect()->route('index.article');
     }
 
     /**
@@ -43,9 +48,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+        return view('article/show')->with(['article' => $article->get()]);
     }
 
     /**
