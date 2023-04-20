@@ -29,6 +29,7 @@
 
             <!-- Page Content -->
             <main>
+                {{-- <x-app-layout>の中は＄slotの部分に入る --}}
                 {{ $slot }}
             </main>
         </div>
