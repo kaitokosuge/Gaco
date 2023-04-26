@@ -18,14 +18,29 @@ class ArticleController extends Controller
      */
     public function index(Article $article,Category $category,Request $request)
     {
+        $search = $request->input('search');
         $category_id = $request->input('category_id');
-        if(!($category_id == null))
-        {
+
+        if($search){
+            $spaceConversion = mb_convert_kana($search, 's');
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+            $query = $article->get();
+            foreach($wordArraySearched as $value) {
+                $query->where('title', 'like', '%'.$value.'%')
+                        ->orwhere('explanation', 'like', '%'.$value.'%')
+                        ->orwhere('html', 'like', '%'.$value.'%')
+                        ->orwhere('css', 'like', '%'.$value.'%')
+                        ->orwhere('js', 'like', '%'.$value.'%');
+            }
+            $articles = $query->orderBy('created_at', 'desc')->getPaginateByLimit(3);
+        } elseif(!($category_id == null)) {
             $articles = $category->find($category_id)->articles->sortByDesc('updated_at')->paginate(3);
         } else {
-            $articles = $article->getPaginateByLimit();
+            $articles = $article->getPaginateByLimit(3);
         }
-        return view('article/index')->with(['articles'=>$articles,'categories' => $category->get()]);
+
+        
+        return view('article/index')->with(['articles'=>$articles,'categories' => $category->get(), 'search' => $search]);
         
     }
 
