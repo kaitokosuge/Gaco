@@ -42,13 +42,24 @@
 </article>
 <div>
     <div>
-        @if($article->is_liked_by_auth_user())
-            <i class="like-toggle fas fa-heart liked" data-id="{{ $article->id }}"></i>
-            <p class="like-counter">{{ $article->likes->count() }}</p>
-        @else
-            <i class="like-toggle fas fa-heart" data-id="{{ $article->id }}"></i>
-            <p class="like-counter">{{ $article->likes->count() }}</p>
-        @endif
+        @auth
+            @if($article->is_liked_by_auth_user())
+                <i class="like-toggle fas fa-heart liked" data-id="{{ $article->id }}"></i>
+                <p class="like-counter">{{ $article->likes->count() }}</p>
+            @else
+                <i class="like-toggle fas fa-heart" data-id="{{ $article->id }}"></i>
+                <p class="like-counter">{{ $article->likes->count() }}</p>
+            @endif
+        @endauth
+        @guest
+            @if($article->is_liked_by_auth_user())
+                <a href="/login"><i class="like-toggle fas fa-heart liked" data-id="{{ $article->id }}"></i></a>
+                <p class="like-counter">{{ $article->likes->count() }}</p>
+            @else
+                <a href="/login"><i class="like-toggle fas fa-heart" data-id="{{ $article->id }}"></i></a>
+                <p class="like-counter">{{ $article->likes->count() }}</p>
+            @endif
+        @endguest
     </div>
     <ul>
         @foreach($article->comments as $comment)
