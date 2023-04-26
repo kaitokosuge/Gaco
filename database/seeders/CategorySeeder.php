@@ -73,5 +73,6 @@ class CategorySeeder extends Seeder
         Category::create([
             'category' => 'graphic',
         ]);
+        Category::timestamps(true);
     }
 }
