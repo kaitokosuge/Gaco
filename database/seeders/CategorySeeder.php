@@ -15,6 +15,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        Category::timestamps(false);
         Category::create([
             'category' => 'アニメーション',
         ]);
