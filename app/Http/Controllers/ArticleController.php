@@ -52,7 +52,8 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
         
-        if(isset($request->file('image'))){
+        $image = $request->file('image');
+        if(isset($image)){
             $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
             //dd($image_url);
             $article->image = $image_url;
