@@ -41,4 +41,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function Articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+    public function followers()
+    {
+        return $this->belongsToMany(self::class,'follows','followee_id','follower_id');
+    }
+    public function followees(){
+        //followsはテーブル名,次はカラム名
+        return $this->belongsToMany(self::class,'follows','follower_id','followee_id');
+    }
+    public function modelUnfollow(Int $user_id)
+    {
+        return $this->followees()->detach($user_id);
+    }
+    public function isFollowing(Int $user_id)
+    {
+        return $this->followees()->where('followee_id',$user_id)->exists();
+    }
 }

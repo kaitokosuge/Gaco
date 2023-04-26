@@ -15,9 +15,16 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Article $article,Category $category)
+    public function index(Article $article,Category $category,Request $request)
     {
-        return view('article/index')->with(['articles'=>$article->get(),'categories' => $category->get()]);
+        $category_id = $request->input('category_id');
+        if(!($category_id == null))
+        {
+            $articles = $category->find($category_id)->articles;
+        } else {
+            $articles = $article->get();
+        }
+        return view('article/index')->with(['articles'=>$articles,'categories' => $category->get()]);
         
     }
 

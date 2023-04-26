@@ -35,3 +35,4 @@
     </div>
 </form>
 @endsection
+@extends('common/footer')

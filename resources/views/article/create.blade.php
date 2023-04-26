@@ -1,5 +1,4 @@
-@extends('common/common')
-@section('content')
+<x-app-layout>
 <main>
     <form action="{{ route('store.article') }}"method="POST">
         @csrf
@@ -45,4 +44,4 @@
         </div>
     </form>
 </main>
-@endsection
+</x-app-layout>
