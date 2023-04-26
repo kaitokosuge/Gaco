@@ -46,33 +46,5 @@
                 {{ $slot }}
             </main>
         </div>
-        <script>
-            $(function(){
-                let like = $('.like-toggle');
-                let likeArticleId;
-                like.on('click',function(){
-                    let $this = $(this);
-                    likeArticleId = $this.data('id');
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url:'/like',
-                        method: 'POST',
-                        data: {
-                            'article_id':likeArticleId
-                        }
-                })
-                    
-                    .done(function (data) {
-                        $this.toggleClass('liked');
-                        $this.next('.like-counter').html(data.likes_count);
-                    })
-                    .fail(function(){
-                        console.log('failaaaaaaa');
-                    });
-                });
-            });
-        </script>
     </body>
 </html>
