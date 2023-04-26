@@ -12,8 +12,3 @@ export default defineConfig({
         }),
     ],
 });
-module.exports = {
-    build: {
-      manifest: true
-    }
-}
