@@ -43,16 +43,12 @@
 <div>
     <div>
         @if($article->is_liked_by_auth_user())
-                <form action="{{ route('unlike', ['id' => $article->id]) }}" method="POST">
-                    @csrf
-                    <button type="submit">いいね{{ $article->likes->count() }}</button>
-                </form>
-            @else
-                <form action="{{ route('like', ['id' => $article->id]) }}" method="POST">
-                    @csrf
-                    <button type="submit">いいね{{ $article->likes->count() }}</button>
-                </form>
-            @endif
+            <i class="like-toggle fa-heart fa-regular liked" data-id="{{ $article->id }}"></i>
+            <p class="like-counter">{{ $article->likes->count() }}</p>
+        @else
+            <i class="like-toggle fa-heart fa-regular" data-id="{{ $article->id }}"></i>
+            <p class="like-counter">{{ $article->likes->count() }}</p>
+        @endif
     </div>
     <ul>
         @foreach($article->comments as $comment)
@@ -67,6 +63,6 @@
         <textarea name="comment"></textarea>
         <button type="submit">送信</button>
     </form>
+    @extends('common/footer')
 </div>
 </x-app-layout>
-@extends('common/footer')

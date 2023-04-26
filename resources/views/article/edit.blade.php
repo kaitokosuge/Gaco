@@ -20,6 +20,13 @@
             <input type="text" name="article[link]" value="{{ $article->link }}">
         </div>
         <div>
+            <p>カテゴリー</p>
+            @foreach($categories as $category)
+                <input type="checkbox"name="categories_array[]"value="{{ $category->id }}"@if($category->id==$article->category) selected @endif>
+                <span>{{ $category->category }}</span>
+            @endforeach
+        </div>
+        <div>
             <p>コード</p>
             <textarea name="article[html]">{{ $article->html }}</textarea>
             <textarea name="article[css]">{{ $article->css }}</textarea>

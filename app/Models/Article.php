@@ -17,6 +17,11 @@ class Article extends Model
         'js',
         'explanation'
     ];
+    public function getPaginateByLimit(int $limit = 3)
+    {
+        return $this->orderBy('updated_at', 'DESC')->paginate($limit);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -7,6 +7,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Category;
+use Cloudinary;
 
 class ArticleController extends Controller
 {
@@ -20,9 +21,9 @@ class ArticleController extends Controller
         $category_id = $request->input('category_id');
         if(!($category_id == null))
         {
-            $articles = $category->find($category_id)->articles;
+            $articles = $category->find($category_id)->articles->sortByDesc('updated_at');
         } else {
-            $articles = $article->get();
+            $articles = $article->getPaginateByLimit();
         }
         return view('article/index')->with(['articles'=>$articles,'categories' => $category->get()]);
         
@@ -47,9 +48,29 @@ class ArticleController extends Controller
      */
     public function store(Request $request, Article $article)
     {
+        //dd($request);
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
+        
+        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+        //dd($image_url);
+        $article->image = $image_url;
         $article->fill($input)->save();
+        //dd($image_url);
+        
+        
+        /*if(isset($request["images_array"])){
+            foreach($request->file("images_array") as $image){
+                //new_imageに格納していく
+                $new_image = New Image;
+                //カラム参照,ID参照
+                $new_image->system_id = $system->id;
+                //クラウディナリー専用メソッドget~
+                $new_image->image_url = Cloudinary::upload($image->getRealPath())->getSecurePath();
+                //dd(Cloudinary::upload($image->getRealPath())->getSecurePath());
+                $new_image->save();
+            }
+        }*/
 
         if(!is_null($request->categories_array)){
             $categories = $request->categories_array;
@@ -75,9 +96,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Article $article,Category $category)
     {
-        return view('article/edit')->with(['article' => $article]);
+        return view('article/edit')->with(['article' => $article,'categories' => $category->get()]);
     }
 
     /**
@@ -92,6 +113,10 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
         $article->fill($input)->save();
+        if(!is_null($request->categories_array)){
+            $categories = $request->categories_array;
+            $article->categories()->attach($categories);
+        }
         return redirect()->route('show.article',['article' => $article->id]);
     }
 
