@@ -24,7 +24,7 @@ class ArticleController extends Controller
         if($search){
             $spaceConversion = mb_convert_kana($search, 's');
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-            $query = $article->get();
+            $query = Article::query()->get();
             foreach($wordArraySearched as $value) {
                 $query->where('title', 'like', '%'.$value.'%')
                         ->orwhere('explanation', 'like', '%'.$value.'%')
