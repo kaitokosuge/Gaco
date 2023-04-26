@@ -20,10 +20,10 @@ use App\Http\Controllers\LikeController;
     return view('welcome');
 });*/
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-/*Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');*/
 
