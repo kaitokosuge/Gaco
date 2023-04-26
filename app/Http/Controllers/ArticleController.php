@@ -52,9 +52,15 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
         
-        $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
-        //dd($image_url);
-        $article->image = $image_url;
+        if(isset($request->file('image'))){
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            //dd($image_url);
+            $article->image = $image_url;
+        } else {
+            $article->image = "https://res.cloudinary.com/ddsv7l0eq/image/upload/v1679331981/u2dypdmcpilo1unzoxpa.jpg";
+        }
+
+
         $article->fill($input)->save();
         //dd($image_url);
         
