@@ -1,4 +1,5 @@
 <x-app-layout>
+<p><a href="/">戻る</a></p>
 <article class="text-gray-300">
     <h1>{{ $article->title }}</h1>
     <img src="{{ $article->image }}">
@@ -40,6 +41,19 @@
     </div>
 </article>
 <div>
+    <div>
+        @if($article->is_liked_by_auth_user())
+                <form action="{{ route('unlike', ['id' => $article->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit">いいね{{ $article->likes->count() }}</button>
+                </form>
+            @else
+                <form action="{{ route('like', ['id' => $article->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit">いいね{{ $article->likes->count() }}</button>
+                </form>
+            @endif
+    </div>
     <ul>
         @foreach($article->comments as $comment)
         <li class="text-gray-300">
@@ -55,3 +69,4 @@
     </form>
 </div>
 </x-app-layout>
+@extends('common/footer')

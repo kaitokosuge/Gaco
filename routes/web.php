@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,10 +22,14 @@ use App\Http\Controllers\CommentController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
+/*Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::get('/',[ArticleController::class,'index'])->name('index.article');
 Route::get('/article/{article}',[ArticleController::class,'show'])->name('show.article');
+Route::get('/profile/{user}',[ProfileController::class,'show'])->name('show.profile');
 
 Route::middleware('auth')->group(function () {
     //article作成関連
@@ -37,6 +42,15 @@ Route::middleware('auth')->group(function () {
     //comment
     Route::post('/article/comment/{id}',[CommentController::class,'store'])->name('comment.article');
 
+    //follow
+    Route::post('/folllow/{user}',[ProfileController::class,'follow'])->name('follow');
+    Route::delete('/unfollow/{user}',[ProfileController::class,'unfollow'])->name('unfollow');
+
+    //like
+    Route::post('/like/{id}',[LikeController::class,'like'])->name('like');
+    Route::post('/unlike/{id}',[LikeController::class,'unlike'])->name('unlike');
+
+    //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -2,37 +2,47 @@
 @section('content')
 <main> --}}
 <x-app-layout>
-<body>
-    
-    <div class="flex">
-        <section class="text-gray-400">
-            <a href="{{ route('create.article') }}">作成</a>
+<body class=>
+    <div class="">
+        
+        <section class="text-white text-sm w-10/12 m-auto">
+            {{--@auth
             <div>
-                <p>カテゴリで絞る</p>
-                <ul>
-                    <li><a href="#!">css設計</a></li>
-                    <li><a href="#!">animation</a></li>
-                    <li><a href="#!">template</a></li>
-                    <li><a href="#!">JavaScript</a></li>
+                <p class="mt-10 font-bold text-green-600">your field</p>
+                <a class="block text-xs text-center mr-5 mt-5 p-2 rounded-md bg-gray-400"href="{{route('create.article')}}">新規作成</a>
+                <a class="block text-xs text-center mr-5 mt-5 p-2 rounded-md bg-gray-400"href="{{route('create.article')}}">プロフィール</a>
+            </div>
+            @endauth--}}
+            <div>
+                <p class="mt-10 font-bold text-green-600">category</p>
+                <form action="{{ route("index.article") }}" method="GET">
+                <ul class="flex overflow-x-scroll mt-2">
+                    @foreach($categories as $category)
+                    <li class="whitespace-nowrap w-full text-black text-xs text-center mr-2 p-2 rounded-md bg-gray-200"><button name="category_id"value={{ $category->id }}>{{ $category->category }}</button></li>
+                    @endforeach
                 </ul>
+                </form>
             </div>
         </section>
-        <section>
+        <section class="w-10/12 m-auto">
+            <p class="mt-10 font-bold text-green-600">gallery</p>
+            <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
             @foreach($articles as $article)
-            <article style="background-color: rgb(236, 236, 236)">
-                <a href="{{ route('show.article',$article->id) }}">
-                    <p>{{ $article->user->name }}</p>
-                    <h2>{{ $article->title }}<h2>
+            <article class="bg-gray-100 rounded-xl p-5 mt-5">
+                <a class="block"href="{{ route('show.article',$article->id) }}">
+                    <h2 class="overflow-x-scroll w-full text-lg font-bold"><span class="whitespace-nowrap">{{ $article->title }}</span><h2>
                     <img src="{{ $article->image }}">
-                    
-                    <ul>
-                        @foreach($article->categories as $category)
-                        <li>{{ $category->category }}</li>
-                        @endforeach
-                    </ul>
-                
                 </a>
-                <div>
+                <ul class='flex overflow-x-scroll mt-5'>
+                    @foreach($article->categories as $category)
+                    <li class="whitespace-nowrap bg-gray-300 p-1 rounded-sm text-xs mr-2">{{ $category->category }}</li>
+                    @endforeach
+                </ul>
+                <p class="text-sm mt-2">day:<span class="text-black font-bold"> {{$article->updated_at}}</span></p>
+                <p class="text-sm mt-1">likes:<span class=" text-black font-bold"> {{ $article->likes->count() }}</span></p>
+                <p class="text-sm mt-1">comment:<span class="text-black font-bold"> {{ $article->comments->count() }}</span></p>
+                <a href="{{ route('show.profile',['user'=>$article->user->id]) }}"><p class="text-md font-bold mt-1"><span class="text-xs"></span>{{ $article->user->name }}</p></a>
+                {{--<div>
                     <div>
                         @if(auth()->check() && $article->user_id == auth()->user()->id)
                         <a href="{{ route('edit.article',['article' => $article->id]) }}">
@@ -49,12 +59,14 @@
                         </form>
                         @endif
                     </div>
-                </div>
+                </div>--}}
             </article>
             @endforeach
+            </div>
         </section>
+        
     </div>
+    @extends('common/footer')
 </body>
 </x-app-layout>
-{{-- </main>
-@endsection --}}
+

@@ -1,20 +1,21 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-blue-900 border-b border-gray-300">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p-5">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a class="text-5xl"href="{{ route('dashboard') }}">
+                        🐸{{--<x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />--}}
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class=" space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <a style="font-family:'Alata','sana-serif';"class="text-white text-4xl font-bold"href="/">Ga-code<span class="block text-sm">Gathering code</span></a>
+                    {{--<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Gaco') }}
+                    </x-nav-link>--}}
                 </div>
             </div>
 
@@ -22,17 +23,23 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center border border-transparent text-xl leading-4 font-medium rounded-3xl text-gray-500 dark:text-gray-100   transition ease-in-out duration-150">
                             @auth
-                                <div>{{ Auth::user()->name }}</div>
+                                <a class="block text-sm font-bold mr-10  hover:text-gray-300"href="{{ route('create.article') }}">新規作成 +</a>
+                                <div class=" hover:text-gray-300 ">{{ Auth::user()->name }}</div>
                             @else
-                                {{-- ログインしてない人はここが表示される --}}
+                                <a class="mr-10 font-bold"href="/">home</a>
+                                <a class="text-sm mr-10 border rounded-md p-3 pr-8 pl-8 hover:opacity-50 transition-all"href="/login">LOG IN<span class="block text-xs mt-2">ログイン</span></a>
+                                <a class="text-sm border rounded-md p-3 pr-8 pl-8 hover:opacity-50 transition-all"href="/register">REGISTER<span class="block text-xs mt-2">新規登録</span></a>
                             @endauth
+                            @auth
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
                             </div>
+                            @else
+                            @endauth
                         </button>
                     </x-slot>
 
