@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->integer('user_id');
+            $table->foreignId('user_id');
         });
     }
 

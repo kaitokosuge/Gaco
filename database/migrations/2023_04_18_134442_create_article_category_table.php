@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('article_category', function (Blueprint $table) {
             $table->id();
-            $table->string('article_id');
-            $table->string('category_id');
-            $table->timestamps();
+            $table->foreignId('article_id');
+            $table->foreignId('category_id');
         });
     }
 
