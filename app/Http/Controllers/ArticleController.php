@@ -21,7 +21,7 @@ class ArticleController extends Controller
         $category_id = $request->input('category_id');
         if(!($category_id == null))
         {
-            $articles = $category->find($category_id)->articles->sortByDesc('updated_at');
+            $articles = $category->find($category_id)->articles->sortByDesc('updated_at')->paginate(3);
         } else {
             $articles = $article->getPaginateByLimit();
         }
