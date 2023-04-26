@@ -1,6 +1,6 @@
 <x-app-layout>
 <main>
-    <form action="{{ route('store.article') }}"method="POST">
+    <form action="{{ route('store.article') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
             <div>
@@ -12,7 +12,7 @@
             </div>
             <div>
                 <p>アイキャッチ画像</p>
-                <input type="file" name="article[image]">
+                <input type="file" name="image">
                 @error('image')
                 <p style="color:red">アップロードに失敗しました。もう一度アップするか別の画像をアップしてください</p>
                 @enderror

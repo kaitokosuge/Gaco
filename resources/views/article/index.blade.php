@@ -31,9 +31,9 @@
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
                 <a class="block"href="{{ route('show.article',$article->id) }}">
                     <h2 class="overflow-x-scroll w-full text-lg font-bold"><span class="whitespace-nowrap">{{ $article->title }}</span><h2>
-                    <img src="{{ $article->image }}">
+                    <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></div>
                 </a>
-                <ul class='flex overflow-x-scroll mt-5'>
+                <ul class='flex overflow-x-scroll mt-1'>
                     @foreach($article->categories as $category)
                     <li class="whitespace-nowrap bg-gray-300 p-1 rounded-sm text-xs mr-2">{{ $category->category }}</li>
                     @endforeach
@@ -64,7 +64,7 @@
             @endforeach
             </div>
         </section>
-        
+        {!! $articles->links('pagination::bootstrap-5')!!}
     </div>
     @extends('common/footer')
 </body>

@@ -47,8 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/unfollow/{user}',[ProfileController::class,'unfollow'])->name('unfollow');
 
     //like
-    Route::post('/like/{id}',[LikeController::class,'like'])->name('like');
-    Route::post('/unlike/{id}',[LikeController::class,'unlike'])->name('unlike');
+    Route::post('/like',[LikeController::class,'like'])->name('like');
+    //Route::post('/unlike/{id}',[LikeController::class,'unlike'])->name('unlike');
 
     //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

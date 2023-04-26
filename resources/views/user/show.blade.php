@@ -17,7 +17,17 @@
             @endif
             <!--ユーザーがリンクアクセス-->
             <p>フォローしてる人数：{{ $user->followees->count() }}</p>
+            <ul>
+                @foreach($user->followees as $followee)
+                <li>{{ $followee->name }}</li>
+                @endforeach
+            </ul>
             <p>フォローされている人数：{{ $user->followers->count() }}</p>
+            <ul>
+                @foreach($user->followers as $follower)
+                <li>{{ $follower->name }}</li>
+                @endforeach
+            </ul>
         @endauth
         @foreach($user->articles as $article)
             <article class="text-black"style="background-color: rgb(236, 236, 236)">
