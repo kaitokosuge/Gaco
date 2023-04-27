@@ -18,6 +18,7 @@ class ArticleController extends Controller
      */
     public function index(Article $article,Category $category,Request $request)
     {
+        // 検索すると文字が入る
         $search = $request->input('search');
         $category_id = $request->input('category_id');
 
