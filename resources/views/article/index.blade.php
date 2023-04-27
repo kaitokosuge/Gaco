@@ -13,13 +13,16 @@
                 <a class="block text-xs text-center mr-5 mt-5 p-2 rounded-md bg-gray-400"href="{{route('create.article')}}">プロフィール</a>
             </div>
             @endauth--}}
-            <form action="/" method="GET">
-                @csrf
-                <div class="input-group">
-                    <input type="search" placeholder="質問を検索" name="search" class="search-form form-control" value="@if (isset($search)) {{ $search }} @endif">
-                    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i>検索</button>
-                </div>
-            </form>
+            <div>
+                <p class="mt-10 font-bold text-green-600">search</p>
+                <form action="/" method="GET">
+                    @csrf
+                    <div class="input-group mt-5">
+                        <input type="search" placeholder="質問を検索" name="search" class="rounded-md search-form form-control" value="@if (isset($search)) {{ $search }} @endif">
+                        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i>検索</button>
+                    </div>
+                </form>
+            </div>
             <div>
                 <p class="mt-10 font-bold text-green-600">category</p>
                 <form action="{{ route("index.article") }}" method="GET">
