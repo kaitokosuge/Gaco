@@ -14,17 +14,17 @@
             </div>
             @endauth--}}
             <div>
-                <p class="mt-10 font-bold text-green-600">search</p>
+                <p class="mt-5 font-bold text-green-600">search</p>
                 <form action="/" method="GET">
                     @csrf
-                    <div class="input-group mt-5">
-                        <input type="search" placeholder="キーワードで検索" name="search" class="text-black rounded-md search-form form-control sm:w-96 w-full" value="@if (isset($search)) {{ $search }} @endif">
-                        <button class="block ml-5 btn btn-outline-success" type="submit"><i class="text-black bg-gray-400 p-2 rounded-md  fas fa-search"></i>検索</button>
+                    <div class="input-group mt-2">
+                        <input type="search" placeholder="キーワードで検索" name="search" class="text-black rounded-md search-form form-control  sm:w-5/6 w-full" value="@if (isset($search)) {{ $search }} @endif">
+                        <button class="btn btn-outline-success" type="submit"><i class="text-black bg-gray-400 p-3 rounded-md  fas fa-search"></i></button>
                     </div>
                 </form>
             </div>
             <div>
-                <p class="mt-10 font-bold text-green-600">category</p>
+                <p class="mt-5 text-md font-bold text-green-600">category</p>
                 <form action="{{ route("index.article") }}" method="GET">
                 <ul class="flex overflow-x-scroll mt-2">
                     @foreach($categories as $category)
@@ -34,8 +34,7 @@
                 </form>
             </div>
         </section>
-        <section class="w-10/12 m-auto">
-            <p class="mt-10 font-bold text-green-600">gallery</p>
+        <section class="w-10/12 m-auto mt-10">
             <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
             @foreach($articles as $article)
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
