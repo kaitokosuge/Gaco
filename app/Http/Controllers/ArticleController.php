@@ -74,7 +74,7 @@ class ArticleController extends Controller
             //dd($image_url);
             $article->image = $image_url;
         } else {
-            $article->image = "https://res.cloudinary.com/ddsv7l0eq/image/upload/v1679331981/u2dypdmcpilo1unzoxpa.jpg";
+            $article->image = "https://res.cloudinary.com/ddsv7l0eq/image/upload/v1682578412/ikewyphb2osvxatlwjb2.png";
         }
 
 

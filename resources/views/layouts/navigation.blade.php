@@ -5,14 +5,14 @@
             <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a class="text-5xl" href="/">
+                    <a class="sm:text-5xl text-2xl mr-5" href="/">
                         🐸{{--<x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />--}}
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class=" space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a style="font-family:'Alata','sana-serif';"class="text-white text-4xl font-bold"href="/">Ga-code<span class="block text-sm">Gathering code</span></a>
+                    <a style="font-family:'Alata','sana-serif';"class="text-white text-2xl sm:text-4xl font-bold"href="/">Ga-code<span class="block text-sm">Gathering code</span></a>
                     {{--<x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Gaco') }}
                     </x-nav-link>--}}

@@ -18,7 +18,7 @@
                 <form action="/" method="GET">
                     @csrf
                     <div class="input-group mt-2">
-                        <input type="search" placeholder="キーワードで検索" name="search" class="text-black rounded-md search-form form-control  sm:w-5/6 w-full" value="@if (isset($search)) {{ $search }} @endif">
+                        <input type="search" placeholder="キーワードで検索" name="search" class="text-black rounded-md search-form form-control  w-5/6" value="@if (isset($search)) {{ $search }} @endif">
                         <button class="btn btn-outline-success" type="submit"><i class="text-black bg-gray-400 p-3 rounded-md  fas fa-search"></i></button>
                     </div>
                 </form>
@@ -34,7 +34,7 @@
                 </form>
             </div>
         </section>
-        <section class="w-10/12 m-auto mt-10">
+        <section class="w-11/12 m-auto mt-10">
             <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
             @foreach($articles as $article)
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
@@ -73,7 +73,9 @@
             @endforeach
             </div>
         </section>
+        <div class="mt-20">
         {!! $articles->links('pagination::bootstrap-5')!!}
+        </div>
     </div>
     @extends('common/footer')
 </body>

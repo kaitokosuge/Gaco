@@ -20,6 +20,12 @@
             .text-muted{
                 display:none;
             }
+            .pagination{
+                margin:-23px auto;
+                width:300px;
+                display:flex;
+                justify-content: space-between;
+            }
         </style>
 
         <!-- Scripts -->
