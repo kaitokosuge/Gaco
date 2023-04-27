@@ -40,7 +40,7 @@
                     <h2 class="overflow-x-scroll w-full text-lg font-bold"><span class="whitespace-nowrap">{{ $article->title }}</span><h2>
                     <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></div>
                 </a>
-                <ul class='flex overflow-x-scroll mt-2'>
+                <ul class='flex overflow-x-scroll mt-3'>
                     @foreach($article->categories as $category)
                     <li class="whitespace-nowrap bg-gray-300 p-1 rounded-sm text-xs mr-2">{{ $category->category }}</li>
                     @endforeach
