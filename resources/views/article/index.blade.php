@@ -18,8 +18,8 @@
                 <form action="/" method="GET">
                     @csrf
                     <div class="input-group mt-5">
-                        <input type="search" placeholder="質問を検索" name="search" class="rounded-md search-form form-control" value="@if (isset($search)) {{ $search }} @endif">
-                        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i>検索</button>
+                        <input type="search" placeholder="キーワードで検索" name="search" class="text-black rounded-md search-form form-control sm:w-96 w-full" value="@if (isset($search)) {{ $search }} @endif">
+                        <button class="block ml-5 btn btn-outline-success" type="submit"><i class="text-black bg-gray-400 p-2 rounded-md  fas fa-search"></i>検索</button>
                     </div>
                 </form>
             </div>
