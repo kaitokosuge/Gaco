@@ -11,7 +11,7 @@
     </ul>
     <div>
         <p class="mt-10 font-bold">HTML</p>
-        <pre>
+        <pre class="mt-5 text-white bg-zinc-900 p-10 rounded-md">
             {{ $article->html }}
         </pre>
         <p class="mt-5 font-bold">CSS</p>
@@ -29,7 +29,7 @@
         @auth
             @if($article->is_liked_by_auth_user())
                 <i class="text-4xl like-toggle fas fa-heart liked" data-id="{{ $article->id }}"></i>
-                <p class="like-counter">{{ $article->likes->count() }}</p>
+                <span class="like-counter">{{ $article->likes->count() }}</span>
             @else
                 <i class="text-4xl like-toggle fas fa-heart" data-id="{{ $article->id }}"></i>
                 <span class="text-4xl like-counter">{{ $article->likes->count() }}</span>
@@ -45,19 +45,20 @@
             @endif
         @endguest
     </div>
-    <ul>
+    <ul class="bg-gray-200 rounded-md mt-5 p-5">
+        <p>コメント</p>
         @foreach($article->comments as $comment)
-        <li class="text-gray-300">
-            <span class="text-green-400">{{ $comment->user->name }}</span>
-            {{ $comment->comment }}
+        <li class="">
+            <p class="font-bold text-green-400">{{ $comment->user->name }}</p>
+            <p class="text-xl font-bold">{{ $comment->comment }}</p>
         </li>
         @endforeach
     </ul>
     <form action="{{ route('comment.article',['id' => $article->id]) }}" method="POST">
         @csrf
-        <div class="flex mt-10">
-        <textarea placeholder="コメント"class="block rounded-md bg-gray-200 w-10/12"name="comment"></textarea>
-        <button class="block p-5 font-bold ml-3 rounded-md bg-gray-200"type="submit">送信</button>
+        <div class="flex mt-5">
+        <textarea placeholder="コメントを書く"class="block rounded-md bg-gray-200 w-10/12"name="comment"></textarea>
+        <button class="block sm:p-5 p-1 font-bold ml-3 rounded-md bg-gray-200"type="submit">送信</button>
         </div>
     </form>
     <div class="flex mt-10">
