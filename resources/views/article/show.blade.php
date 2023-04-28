@@ -11,7 +11,7 @@
     </ul>
     <div>
         <p class="mt-10 font-bold">HTML</p>
-        <pre class="mt-5 text-white bg-zinc-900 p-10 rounded-md">{{ $article->html }}</pre>
+        <pre class="mt-5 text-white bg-zinc-900 sm:p-10 p-5 rounded-md overflow-scroll">{{ $article->html }}</pre>
         <p class="mt-5 font-bold">CSS</p>
         <pre>{{ $article->css }}</pre>
         <p class="mt-5 font-bold">JavaScript</p>
