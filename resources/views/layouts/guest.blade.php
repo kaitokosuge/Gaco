@@ -21,7 +21,7 @@
             <div>
                 <a href="/">
                     <p class="text-center text-4xl">🐸</p>
-                    <h1 style="font-family:'Alata','sans-serif';"class="text-block font-bold text-6xl">Gathering Code</h1>
+                    <h1 style="font-family:'Alata','sans-serif';"class="text-block font-bold text-md sm:text-6xl">Gathering Code</h1>
                     {{--<x-application-logo class="w-20 h-20 fill-current text-gray-100" />--}}
                 </a>
             </div>
