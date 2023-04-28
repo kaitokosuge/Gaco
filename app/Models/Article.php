@@ -17,7 +17,7 @@ class Article extends Model
         'js',
         'explanation'
     ];
-    public function getPaginateByLimit(int $limit = 3)
+    public function getPaginateByLimit(int $limit = 21)
     {
         return $this->orderBy('updated_at', 'DESC')->paginate($limit);
     }

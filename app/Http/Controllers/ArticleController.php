@@ -33,11 +33,11 @@ class ArticleController extends Controller
                         ->orwhere('css', 'like', '%'.$value.'%')
                         ->orwhere('js', 'like', '%'.$value.'%');
             }
-            $articles = $query->orderBy('created_at', 'desc')->paginate(3);
+            $articles = $query->orderBy('created_at', 'desc')->paginate(21);
         } elseif(!($category_id == null)) {
-            $articles = $category->find($category_id)->articles->sortByDesc('updated_at')->paginate(3);
+            $articles = $category->find($category_id)->articles->sortByDesc('updated_at')->paginate(21);
         } else {
-            $articles = $article->getPaginateByLimit(3);
+            $articles = $article->getPaginateByLimit(21);
         }
 
         
