@@ -34,7 +34,7 @@
                 </form>
             </div>
         </section>
-        <section class="w-11/12 m-auto mt-10">
+        <section class="w-11/12 sm:w-10/12 m-auto mt-10">
             <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
             @foreach($articles as $article)
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
