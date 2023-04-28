@@ -13,11 +13,11 @@
         <p class="mt-10 font-bold">HTML</p>
         <pre class="mt-5 text-white bg-zinc-900 sm:p-10 p-5 rounded-md overflow-scroll">{{ $article->html }}</pre>
         <p class="mt-5 font-bold">CSS</p>
-        <pre>{{ $article->css }}</pre>
+        <pre class="mt-5 text-white bg-zinc-900 sm:p-10 p-5 rounded-md overflow-scroll">{{ $article->css }}</pre>
         <p class="mt-5 font-bold">JavaScript</p>
-        <pre>{{ $article->js }}</pre>
+        <pre class="mt-5 text-white bg-zinc-900 sm:p-10 p-5 rounded-md overflow-scroll">{{ $article->js }}</pre>
     </div>
-    <p class="font-bold">説明</p>
+    <p class="font-bold mt-5">説明</p>
     <p>{{ $article->explanation }}</p>
     <div class="mt-10">
         @auth
