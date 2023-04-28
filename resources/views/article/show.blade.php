@@ -4,9 +4,9 @@
     <h1 class="font-bold sm:text-4xl text-3xl">{{ $article->title }}</h1>
     <img class="mt-5 sm:mt-10 rounded-lg"src="{{ $article->image }}">
     <a class="text-blue-300"href="{{ $article->link }}">{{ $article->link }}</a>
-    <ul>
+    <ul class='flex overflow-x-scroll mt-3'>
         @foreach($article->categories as $category)
-        <li>{{ $category->category }}</li>
+        <li class="whitespace-nowrap bg-gray-300 p-1 rounded-sm text-xs mr-2">{{ $category->category }}</li>
         @endforeach
     </ul>
     <div>
