@@ -1,34 +1,44 @@
 <x-app-layout>
     <div class="text-gray-600">
-        <h1>{{ $user->name }}</h1>
+        <section class="bg-white sm:p-10 p-5 rounded-md  text-black w-11/12 sm:w-10/12 m-auto mt-10">
+        <h1 class="text-4xl font-bold">{{ $user->name }}</h1>
         @auth
+        <div class="flex mt-5">
+            <div>
+            <p>フォロー中：{{ $user->followees->count() }}</p>
+            <ul class="rounded-md bg-gray-200 p-2 h-12 overflow-scroll">
+                @foreach($user->followees as $followee)
+                <li>{{ $followee->name }}</li>
+                @endforeach
+            </ul>
+            </div>
+            <div class="ml-5">
+            <p>フォロワー：{{ $user->followers->count() }}</p>
+            <ul class="rounded-md bg-gray-200 p-2 h-12 overflow-scroll">
+                @foreach($user->followers as $follower)
+                <li>{{ $follower->name }}</li>
+                @endforeach
+            </ul>
+            </div>
+        </div>
             {{--{{ dd($user->isFollowing($user->id)); }}--}}
             @if($login_user->isFollowing($user->id))
                 <form action="{{ route('unfollow',['user'=>$user->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">follow解除</button>
+                    <button class="mt-5 bg-black text-white p-2 rounded-md"type="submit">フォロー中</button>
                 </form>
             @else
                 <form action="{{ route('follow',['user'=>$user->id]) }}" method="POST">
                     @csrf
-                    <button type="submit">follow</button>
+                    <button type="submit">フォローする</button>
                 </form>
             @endif
             <!--ユーザーがリンクアクセス-->
-            <p>フォローしてる人数：{{ $user->followees->count() }}</p>
-            <ul>
-                @foreach($user->followees as $followee)
-                <li>{{ $followee->name }}</li>
-                @endforeach
-            </ul>
-            <p>フォローされている人数：{{ $user->followers->count() }}</p>
-            <ul>
-                @foreach($user->followers as $follower)
-                <li>{{ $follower->name }}</li>
-                @endforeach
-            </ul>
         @endauth
+        </section>
+        <section class="w-11/12 sm:w-10/12 m-auto mt-10">
+        <p class="mt-5 text-green-500">あなたの投稿</p>
         <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
         @foreach($user->articles as $article)
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
@@ -66,7 +76,8 @@
                     </div>
             </article>
             @endforeach
-        </div>    
+        </div>  
+        </section>  
     </div>
 </x-app-layout>
 @extends('common/footer')

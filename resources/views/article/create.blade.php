@@ -1,47 +1,52 @@
 <x-app-layout>
-<main>
-    <form action="{{ route('store.article') }}" method="POST" enctype="multipart/form-data">
+    <section class="text-black bg-white w-11/12 sm:w-9/12 m-auto mt-10 rounded-lg sm:p-20 p-5">
+    <p class="text-xl font-bold">新規作成</p>
+    <form class="mt-10"action="{{ route('store.article') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div>
             <div>
-                <p>プロジェクト名</p>
-                <input type="text" name="article[title]">
+                <p class="text-sm mt-5">プロジェクト名：必須</p>
+                <input class="mt-2 w-full rounded-md bg-gray-200"type="text" name="article[title]">
                 @error('name')
                 <p style="color:red">プロジェクト名は30字以内でお願いします</p>
                 @enderror
             </div>
             <div>
-                <p>アイキャッチ画像</p>
-                <input type="file" name="image">
+                <p class="text-sm mt-5">アイキャッチ画像</p>
+                <input class="mt-2 w-full rounded-md bg-gray-200"type="file" name="image">
                 @error('image')
                 <p style="color:red">アップロードに失敗しました。もう一度アップするか別の画像をアップしてください</p>
                 @enderror
             </div>
             <div>
-                <p>参考リンク</p>
-                <input type="text" name="article[link]">
+                <p class="text-sm mt-5">参考リンク</p>
+                <input class="mt-2 w-full rounded-md bg-gray-200"type="text" name="article[link]">
             </div>
             <div>
-                <p>カテゴリー</p>
+                <p class="text-sm mt-5 mb-5">カテゴリー</p>
                 @foreach($categories as $category)
                     <input type="checkbox"name="categories_array[]"value="{{ $category->id }}">
-                    <span>{{ $category->category }}</span>
+                    <span class="mr-3">{{ $category->category }}</span>
                 @endforeach
             </div>
             <div>
-                <p>コード</p>
-                <textarea name="article[html]"></textarea>
-                <textarea name="article[css]"></textarea>
-                <textarea name="article[js]"></textarea>     
+                <p class="text-sm mt-5">コード</p>
+                <p class="mt-5">HTML</p>
+                <textarea class="block w-full text-white rounded-md bg-gray-800"name="article[html]"></textarea>
+                <p class="mt-5">CSS</p>
+                <textarea class="block w-full text-white rounded-md bg-gray-800"name="article[css]"></textarea>
+                <p class="mt-5">JavaScript</p>
+                <textarea class="block w-full text-white rounded-md bg-gray-800"name="article[js]"></textarea>     
             </div>
             <div>
-                <p>説明</p>
-                <input type="text" name="article[explanation]">
+                <p class="text-sm mt-5">説明</p>
+                <input class="mt-2 h-20 w-full rounded-md bg-gray-200"type="text" name="article[explanation]">
             </div>
             <div>
-                <button type="submit">投稿</button>
+                <button class="mt-10 bg-black rounded-md text-white p-2 block m-auto"type="submit">投稿する</button>
             </div>
         </div>
     </form>
-</main>
+    </section>
+    @extends('common/footer')
 </x-app-layout>
