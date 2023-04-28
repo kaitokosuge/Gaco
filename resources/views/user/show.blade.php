@@ -29,18 +29,23 @@
                 @endforeach
             </ul>
         @endauth
+        <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
         @foreach($user->articles as $article)
-            <article class="text-black"style="background-color: rgb(236, 236, 236)">
-                <a class="p-5 block"href="{{ route('show.article',$article->id) }}">
+            <article class="bg-gray-100 rounded-xl p-5 mt-5">
+                <a class="block"href="{{ route('show.article',$article->id) }}">
                     <a href="{{ route('show.profile',['user'=>$article->user->id]) }}"><p>{{ $article->user->name }}</p></a>
-                    <h2>{{ $article->title }}<h2>
-                    <img src="{{ $article->image }}">
-                    <ul>
+                        <h2 class="overflow-x-scroll w-full text-lg font-bold">{{ $article->title }}<h2>
+                        <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></div>
+                    </a>
+                    <ul class='flex overflow-x-scroll mt-3'>
                         @foreach($article->categories as $category)
-                        <li>{{ $category->category }}</li>
+                        <li class="whitespace-nowrap bg-gray-300 p-1 rounded-sm text-xs mr-2">{{ $category->category }}</li>
                         @endforeach
                     </ul>
-                    <p>comment:{{ $article->comments->count() }}</p>
+                    <p class="text-sm mt-2">day:<span class="text-black font-bold"> {{$article->updated_at}}</span></p>
+                    <p class="text-sm mt-1">likes:<span class=" text-black font-bold"> {{ $article->likes->count() }}</span></p>
+                    <p class="text-sm mt-1">comment:<span class="text-black font-bold"> {{ $article->comments->count() }}</span></p>
+                    <a href="{{ route('show.profile',['user'=>$article->user->id]) }}"><p class="text-md font-bold mt-1"><span class="text-xs"></span>{{ $article->user->name }}</p></a>
                     <div>
                         <div>
                             @if(auth()->check() && $article->user_id == auth()->user()->id)
@@ -59,9 +64,9 @@
                             @endif
                         </div>
                     </div>
-                </a>
             </article>
             @endforeach
+        </div>    
     </div>
 </x-app-layout>
 @extends('common/footer')
