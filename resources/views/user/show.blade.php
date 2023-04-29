@@ -42,10 +42,11 @@
         <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
         @foreach($user->articles as $article)
             <article class="bg-gray-100 rounded-xl p-5 mt-5">
-                <a class="block"href="{{ route('show.article',$article->id) }}">
                     <a href="{{ route('show.profile',['user'=>$article->user->id]) }}"><p>{{ $article->user->name }}</p></a>
-                        <h2 class="overflow-x-scroll w-full text-lg font-bold">{{ $article->title }}<h2>
-                        <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></div>
+                    <a class="block"href="{{ route('show.article',$article->id) }}"><h2 class="overflow-x-scroll w-full text-lg font-bold">{{ $article->title }}<h2></a>
+                        <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all">
+                            <a class="block"href="{{ route('show.article',$article->id) }}"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></a>
+                        </div>
                     </a>
                     <ul class='flex overflow-x-scroll mt-3'>
                         @foreach($article->categories as $category)
