@@ -16,33 +16,33 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Article $article,Category $category,Request $request)
+    public function index(Article $article, Category $category, Request $request)
     {
         // 検索すると文字が入る
         $search = $request->input('search');
         $category_id = $request->input('category_id');
 
-        if($search){
+        if ($search) {
             $spaceConversion = mb_convert_kana($search, 's');
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
             $query = Article::query();
-            foreach($wordArraySearched as $value) {
-                $query->where('title', 'like', '%'.$value.'%')
-                        ->orwhere('explanation', 'like', '%'.$value.'%')
-                        ->orwhere('html', 'like', '%'.$value.'%')
-                        ->orwhere('css', 'like', '%'.$value.'%')
-                        ->orwhere('js', 'like', '%'.$value.'%');
+            //dd($query);
+            foreach ($wordArraySearched as $value) {
+                $query->where('title', 'like', '%' . $value . '%')
+                    ->orwhere('explanation', 'like', '%' . $value . '%')
+                    ->orwhere('html', 'like', '%' . $value . '%')
+                    ->orwhere('css', 'like', '%' . $value . '%')
+                    ->orwhere('js', 'like', '%' . $value . '%');
             }
             $articles = $query->orderBy('created_at', 'desc')->paginate(21);
-        } elseif(!($category_id == null)) {
+        } elseif (!($category_id == null)) {
             $articles = $category->find($category_id)->articles->sortByDesc('updated_at')->paginate(21);
         } else {
             $articles = $article->getPaginateByLimit(21);
         }
+        $components = 5;
 
-        
-        return view('article/index')->with(['articles'=>$articles,'categories' => $category->get(), 'search' => $search]);
-        
+        return view('article/index', compact('components'))->with(['articles' => $articles, 'categories' => $category->get(), 'search' => $search]);
     }
 
     /**
@@ -52,8 +52,8 @@ class ArticleController extends Controller
      */
     public function create(Category $category)
     {
+
         return view('article/create')->with(['categories' => $category->get()]);
-        
     }
 
     /**
@@ -67,9 +67,9 @@ class ArticleController extends Controller
         //dd($request);
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
-        
+
         $image = $request->file('image');
-        if(isset($image)){
+        if (isset($image)) {
             $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
             //dd($image_url);
             $article->image = $image_url;
@@ -80,8 +80,8 @@ class ArticleController extends Controller
 
         $article->fill($input)->save();
         //dd($image_url);
-        
-        
+
+
         /*if(isset($request["images_array"])){
             foreach($request->file("images_array") as $image){
                 //new_imageに格納していく
@@ -95,8 +95,9 @@ class ArticleController extends Controller
             }
         }*/
 
-        if(!is_null($request->categories_array)){
+        if (!is_null($request->categories_array)) {
             $categories = $request->categories_array;
+            // dd($categories);
             $article->categories()->attach($categories);
         }
         return redirect()->route('index.article');
@@ -108,9 +109,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article,Comment $comment,Category $category)
+    public function show(Article $article, Comment $comment, Category $category)
     {
-        return view('article/show')->with(['article' => $article,'comment' => $comment,'category' =>$category->get()]);
+        //dd($article);
+        return view('article/show')->with(['article' => $article, 'comment' => $comment, 'category' => $category->get()]);
     }
 
     /**
@@ -119,9 +121,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article,Category $category)
+    public function edit(Article $article, Category $category)
     {
-        return view('article/edit')->with(['article' => $article,'categories' => $category->get()]);
+        return view('article/edit')->with(['article' => $article, 'categories' => $category->get()]);
     }
 
     /**
@@ -136,11 +138,11 @@ class ArticleController extends Controller
         $article->user_id = \Auth::user()->id;
         $input = $request['article'];
         $article->fill($input)->save();
-        if(!is_null($request->categories_array)){
+        if (!is_null($request->categories_array)) {
             $categories = $request->categories_array;
             $article->categories()->attach($categories);
         }
-        return redirect()->route('show.article',['article' => $article->id]);
+        return redirect()->route('show.article', ['article' => $article->id]);
     }
 
     /**

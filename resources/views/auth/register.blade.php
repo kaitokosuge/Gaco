@@ -1,7 +1,7 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
-
+        <input type="hidden" value="{{ $url }}">
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('名前')" />

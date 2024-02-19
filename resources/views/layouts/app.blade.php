@@ -26,6 +26,16 @@
                 display:flex;
                 justify-content: space-between;
             }
+            .show-article.show{
+                opacity:1;
+                transition:.8s;
+                transform:translateY(0);
+            }
+            .show{
+                opacity:0;
+                transition:.8s;
+                transform:translateY(50px);
+            }
         </style>
 
         <!-- Scripts -->

@@ -20,7 +20,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $url = url()->previous();
+        $previousUrl = parse_url($url);
+        $path =  $previousUrl['path'];
+        return view('auth.register')->with('url' ,$url);
     }
 
     /**
@@ -45,7 +48,14 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        //session(['previous_url' => url()->previous()]);
+        // 二つ前のURLを取得
+        //$url = session('previous_url');
+        //dd($url);
+        //$preurl = $url;
+        
+        
+        //return redirect(RouteServiceProvider::HOME);
+        return redirect('/');
     }
 }

@@ -4,7 +4,7 @@
 <x-app-layout>
 <body class=>
     <div class="">
-        
+        {{-- {{ $components }} --}}
         <section class="text-white text-sm w-10/12 m-auto">
             {{--@auth
             <div>
@@ -37,7 +37,7 @@
         <section class="w-11/12 sm:w-10/12 m-auto mt-10">
             <div class="sm:grid sm:grid-cols-3 gap-6 mt-5 flex-wrap block">
             @foreach($articles as $article)
-            <article class="bg-gray-100 rounded-xl p-5 mt-5">
+            <article class="bg-gray-100 rounded-xl p-5 mt-5 show">
                 <a class="block"href="{{ route('show.article',$article->id) }}">
                     <h2 class="overflow-x-scroll w-full text-lg font-bold"><span class="whitespace-nowrap">{{ $article->title }}</span><h2>
                     <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></div>
@@ -78,6 +78,18 @@
         </div>
     </div>
     @extends('common/footer')
+    <script>
+        window.addEventListener('scroll',()=>{
+            const scroll = window.pageYOffset;
+            if(scroll > 50){
+            const articles = document.querySelectorAll('.show');
+            for(let i = 0; articles.length > i ; i++){
+                articles[i].classList.add('show-article');
+                console.log('ok')
+            }
+            }
+        })
+    </script>
 </body>
 </x-app-layout>
 

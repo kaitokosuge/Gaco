@@ -4,16 +4,16 @@
         <h1 class="text-4xl font-bold">{{ $user->name }}</h1>
         @auth
         <div class="flex mt-5">
-            <div>
-            <p>フォロー中：{{ $user->followees->count() }}</p>
+            <div class="mt-5">
+            <p>フォロー中：<span class="text-4xl">{{ $user->followees->count() }}</span></p>
             <ul class="rounded-md bg-gray-200 p-2 h-12 overflow-scroll">
                 @foreach($user->followees as $followee)
-                <li>{{ $followee->name }}</li>
+                <li><a href="">{{ $followee->name }}</a></li>
                 @endforeach
             </ul>
             </div>
-            <div class="ml-5">
-            <p>フォロワー：{{ $user->followers->count() }}</p>
+            <div class="ml-5 mt-5">
+            <p>フォロワー：<span class="text-4xl">{{ $user->followers->count() }}</span></p>
             <ul class="rounded-md bg-gray-200 p-2 h-12 overflow-scroll">
                 @foreach($user->followers as $follower)
                 <li>{{ $follower->name }}</li>
@@ -31,7 +31,7 @@
             @else
                 <form action="{{ route('follow',['user'=>$user->id]) }}" method="POST">
                     @csrf
-                    <button type="submit">フォローする</button>
+                    <button class="mt-5 bg-black text-white p-2 rounded-md"type="submit">フォローする</button>
                 </form>
             @endif
             <!--ユーザーがリンクアクセス-->
@@ -45,7 +45,7 @@
                     <a href="{{ route('show.profile',['user'=>$article->user->id]) }}"><p>{{ $article->user->name }}</p></a>
                     <a class="block"href="{{ route('show.article',$article->id) }}"><h2 class="overflow-x-scroll w-full text-lg font-bold">{{ $article->title }}<h2></a>
                         <div class="mt-2 h-40 sm:h-52 hover:opacity-50 transition-all">
-                            <a class="block"href="{{ route('show.article',$article->id) }}"><img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}"></a>
+                            <img class="rounded-md block h-full w-full object-cover" src="{{ $article->image }}">
                         </div>
                     </a>
                     <ul class='flex overflow-x-scroll mt-3'>

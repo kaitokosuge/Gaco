@@ -68,19 +68,18 @@ class ProfileController extends Controller
             'login_user' => $login_user,
         ]);
     }
-    public function follow(User $user,Follow $follow)
+    public function follow(User $user, Follow $follow)
     {
         $follow->follower_id = \Auth::id();
         $follow->followee_id = $user->id;
         $follow->save();
-
         return back();
     }
     public function unfollow(User $user)
     {
         $followee = Auth::user();
         $is_following = $followee->isFollowing($user->id);
-        if($is_following){
+        if ($is_following) {
             $followee->modelUnfollow($user->id);
             return back();
         }

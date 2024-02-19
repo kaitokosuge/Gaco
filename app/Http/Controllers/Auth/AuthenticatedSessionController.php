@@ -17,7 +17,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $url = url()->previous();
+        $previousUrl = parse_url($url);
+        $path =  $previousUrl['path'];
+        //dd($path);
+        return view('auth.login',compact('path'));
     }
 
     /**
@@ -25,11 +29,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $path = $request['previous'];
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        //return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect($path);
     }
 
     /**

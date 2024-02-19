@@ -4,7 +4,7 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
+        <input type="hidden" name="previous" value="{{ $path ?? url('/') }}">
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('メールアドレス')" />

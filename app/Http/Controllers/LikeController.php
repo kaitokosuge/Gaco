@@ -15,7 +15,7 @@ class LikeController extends Controller
         $user_id = Auth::id();
         $article_id = $request->article_id;
         $already_liked = Like::where('user_id', $user_id)->where('article_id', $article_id)->first();
-    
+
         if (!$already_liked) {
             $like = new Like;
             $like->article_id = $article_id;
@@ -24,7 +24,7 @@ class LikeController extends Controller
         } else {
             Like::where('article_id', $article_id)->where('user_id', $user_id)->delete();
         }
-        
+
         $article = Article::where('id', $article_id)->first();
         $article_likes_count = $article->likes->count();
         $param = [

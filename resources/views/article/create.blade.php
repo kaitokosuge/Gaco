@@ -13,7 +13,8 @@
             </div>
             <div>
                 <p class="text-sm mt-5">アイキャッチ画像</p>
-                <input class="mt-2 w-full rounded-md bg-gray-200"type="file" name="image">
+                <input multiple="multiple" class="mt-2 w-full rounded-md bg-gray-200" type="file" onchange="loadImage(this);" name="image">
+                <p id="preview"></p>
                 @error('image')
                 <p style="color:red">アップロードに失敗しました。もう一度アップするか別の画像をアップしてください</p>
                 @enderror
@@ -49,4 +50,17 @@
     </form>
     </section>
     @extends('common/footer')
+    <script>
+        function loadImage(obj)
+        {
+            document.getElementById('preview').innerHTML = '<p>プレビュー</p>';
+            for (i = 0; i < obj.files.length; i++) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function (e) {
+                    document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
+                });
+                fileReader.readAsDataURL(obj.files[i]);
+            }
+        }
+    </script>
 </x-app-layout>

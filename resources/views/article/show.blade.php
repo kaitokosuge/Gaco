@@ -76,31 +76,105 @@
 </article>
 @extends('common/footer')
 <script>
-    $(function(){
-        let like = $('.like-toggle');
+    //DOMの読み込みが完了してから操作できるようにする
+    document.addEventListener('DOMContentLoaded', function() {
+        //いいねボタン要素取得（ここを押したらfetchへ行く）
+        const like = document.querySelector('.like-toggle');
+        //いいねを押したarticleのidを格納する変数が必要なので宣言
         let likeArticleId;
-        like.on('click',function(){
-            let $this = $(this);
-            likeArticleId = $this.data('id');
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-                },
-                url:'/like',
+        like.addEventListener('click', function(e) {
+            let target = e.target;
+            console.log(target);
+            //いいねボタン要素に格納したデータ属性の記事idを取得
+            likeArticleId = target.getAttribute('data-id');
+            //fetchを使うことでURLにデータをアップロードすることができる。下記では
+            fetch('/like', {
+                //リクエスト形式
                 method: 'POST',
-                data: {
-                    'article_id':likeArticleId
-                }
-        })
-            
-            .done(function (data) {
-                $this.toggleClass('liked');
-                $this.next('.like-counter').html(data.likes_count);
+                headers: {
+                    //Content-Typeでクライアントがサーバーに送ったデータの種類を伝える。今回はapplication/jsonでJSONファイルを指定 https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Content-Type
+                    'Content-Type': 'application/json',
+                    //正規のcsrfトークンであることを記載？？　https://takabus.com/tips/1115/#:~:text=%E3%81%BE%E3%81%A8%E3%82%81-,CSRF%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%80%81%E6%84%8F%E5%91%B3%E3%81%AA%E3%81%84%E3%82%93%E3%81%98%E3%82%83%E3%81%AA%E3%81%84%EF%BC%9F,%E3%81%AE%E5%80%A4%E3%81%AE%E3%81%93%E3%81%A8%E3%81%A7%E3%81%99%E3%80%82
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ article_id: likeArticleId })
             })
-            .fail(function(){
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('ドンマイ');
+                }
+            })
+            .then(function(data) {
+                target.classList.toggle('liked');
+                target.nextElementSibling.innerHTML = data.likes_count;
+            })
+            .catch(function() {
                 console.log('failaaaaaaa');
             });
         });
     });
+
+    // function like(){
+    //     let like = document.querySelector('.like-toggle');
+    //     let likeArticleId;
+    //     like.addEventListener('click',function(e){
+    //         let $this = e.target;
+    //         console.log($this);
+    //         likeArticleId = $this.dataset.id;
+    //         const data = {
+    //             article_id: likeArticleId
+    //         };
+    //         fetch('/like',{
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    //             },
+    //             method: 'POST',
+    //             body:JSON.stringify(data),
+    //         })
+    //         .then(function(response) {
+    //         if (response.ok) {
+    //             console.log($this);
+    //             $this.classList.toggle('liked');
+    //             $this.next('.like-counter').html(data.likes_count);
+    //         } else {
+    //             throw new Error('Network response was not ok.');
+    //         }
+    //         })  
+    //         .catch(function(error) {
+    //             console.log('Error:', error.message);
+    //         });
+        
+    //     })
+    // };
+
+    // $(function(){
+    //     let like = $('.like-toggle');
+    //     let likeArticleId;
+    //     like.on('click',function(){
+    //         let $this = $(this);
+    //         likeArticleId = $this.data('id');
+    //         $.ajax({
+    //             headers: {
+    //                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             url:'/like',
+    //             method: 'POST',
+    //             data: {
+    //                 'article_id':likeArticleId
+    //             }
+    //     })
+            
+    //         .done(function (data) {
+    //             $this.toggleClass('liked');
+    //             $this.next('.like-counter').html(data.likes_count);
+    //         })
+    //         .fail(function(){
+    //             console.log('fail');
+    //         });
+    //     });
+    // });
 </script>
 </x-app-layout>
